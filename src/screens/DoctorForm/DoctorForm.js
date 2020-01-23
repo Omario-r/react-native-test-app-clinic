@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
-  StatusBar,
-  TextInput,
 } from 'react-native';
-import { Formik,  Field, Form, withFormik } from 'formik';
-import {Text, List, ListItem, Container, Content, Tabs, Tab, TabHeading, Button, Toast } from 'native-base';
+import { Formik } from 'formik';
+import {Text, Container, Button } from 'native-base';
 
 import Input from './Components/InputText';
 import Picker from './Components/PickerText';
@@ -96,11 +93,8 @@ class DoctorForm extends Component {
               {({
               handleSubmit,
               handleChange,
-              handleBlur,
               values,
-              errors,
               setFieldValue,
-              isValid,
               }) => {
                 this.props.navigation.submitForm = handleSubmit;
                 return (
@@ -177,7 +171,7 @@ const styles = StyleSheet.create({
   delButton: {
     marginVertical: 20,
     paddingHorizontal: 60,
-  }
+  },
 });
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput,   StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Text, Picker } from 'native-base';
 
 const PickerText = (props) => {

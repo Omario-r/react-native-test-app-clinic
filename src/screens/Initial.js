@@ -1,12 +1,8 @@
 import React from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
   View,
-  StatusBar,
 } from 'react-native';
-import {Text, List, ListItem, Container, Content, Tabs, Tab, TabHeading, Button, Icon } from 'native-base';
+import {Text, Container, Tabs, Tab, Button } from 'native-base';
 
 import DoctorsList from './DoctorsList/DoctorsList';
 
@@ -39,6 +35,6 @@ MainScreen.navigationOptions = ({ navigation }) => ({
       </Button>
     </View>
   ),
-})
+});
 
 export default MainScreen;

@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
-  View,
-  StatusBar,
-  TouchableHighlight
-} from 'react-native';
+  View} from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { withNavigation } from 'react-navigation';
 
@@ -47,20 +42,20 @@ class DoctorItem extends React.Component {
           </CardItem>
         </Card>
         <ActionSheet
-          ref={o => this.ActionSheet = o}
+          ref={o => {this.ActionSheet = o;}}
           options={['Редактировать', 'Позвонить', 'Убрать в архив']}
           destructiveButtonIndex={2}
           onPress={this.switchActions}
         />
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   card: {
     flexDirection:'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   textBox:{
     flexDirection: 'column',
@@ -69,7 +64,7 @@ const styles = StyleSheet.create({
   textSpec: {
     fontSize: 14,
     color: 'gray',
-  }
-})
+  },
+});
 
 export default withNavigation(DoctorItem);

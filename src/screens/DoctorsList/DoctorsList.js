@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
-  Text,
-  StatusBar,
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
@@ -22,7 +19,7 @@ class DoctorsList extends Component {
 
   feth = () => {
     getDoctorsList()
-    .then(({ data }) => this.setState({ doctors: data }))  
+    .then(({ data }) => this.setState({ doctors: data }));
   }
 
   render() {
@@ -36,15 +33,15 @@ class DoctorsList extends Component {
           </View>
         ))}
       </ScrollView>
-  )
+  );
   }
 }
 
 const styles = StyleSheet.create({
   container:{
     paddingHorizontal: 10,
-    paddingVertical: 10
-  }
-})
+    paddingVertical: 10,
+  },
+});
 
 export default DoctorsList;

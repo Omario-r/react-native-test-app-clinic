@@ -10,6 +10,7 @@ import {Text, Container, Button } from 'native-base';
 import Input from './Components/InputText';
 import Picker from './Components/PickerText';
 import { getSpecialisations, addDoctor, removeDoctor } from '../../dal/fetch';
+import { CheckmarkIcon } from '../../icons';
 
 const doctorInintFields = {
   name: '',
@@ -48,7 +49,8 @@ class DoctorForm extends Component {
               navigation.navigate('Initial');
             }}
           >
-            <Text style={{ fontSize: 26 }}>v</Text>
+            {/* <Text style={{ fontSize: 26 }}>v</Text> */}
+            {CheckmarkIcon(23, 23, 'blue')}
           </Button>
         </View>
       ),

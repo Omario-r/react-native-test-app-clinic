@@ -3,6 +3,7 @@ import {
   View,
 } from 'react-native';
 import {Text, Container, Tabs, Tab, Button } from 'native-base';
+import { PlusIcon } from '../icons';
 
 import DoctorsList from './DoctorsList/DoctorsList';
 
@@ -31,7 +32,8 @@ MainScreen.navigationOptions = ({ navigation }) => ({
         small
         onPress={() => navigation.navigate('DoctorForm')}
       >
-        <Text style={{ fontSize: 26 }}>+</Text>
+        {/* <Text style={{ fontSize: 26 }}>+</Text> */}
+        {PlusIcon(25, 25, 'blue')}
       </Button>
     </View>
   ),

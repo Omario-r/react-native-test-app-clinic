@@ -10,5 +10,3 @@ export const addDoctor = (payload) => axios.post(`${API_URL}/api/v1/doctors${ACC
 export const getSpecialisations = () => axios.get(`${API_URL}/api/v1/doctorspecialisations${ACCESS_TOKEN}`);
 
 export const removeDoctor = (id) => axios.delete(`${API_URL}/api/v1/doctors/${id}${ACCESS_TOKEN}`);
-
-export const updateDoctor = (id) => axios.post(`${API_URL}/api/v1/doctors/${id}${ACCESS_TOKEN}`);

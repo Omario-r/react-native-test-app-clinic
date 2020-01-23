@@ -7,6 +7,7 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 
 import Doctor from './Components/Doctor';
 import { getDoctorsList } from '../../dal/fetch';
@@ -16,15 +17,19 @@ class DoctorsList extends Component {
   }
 
   componentDidMount() {
+    this.feth();
+  }
+
+  feth = () => {
     getDoctorsList()
     .then(({ data }) => this.setState({ doctors: data }))  
   }
 
   render() {
     const { doctors = [] } = this.state;
-    console.log("Doc>>>", doctors)
     return (
       <ScrollView style={styles.container}>
+        <NavigationEvents onDidFocus={this.feth} />
         {doctors.map(doctor => (
           <View key={doctor.id}>
             <Doctor doctor={doctor}/>

@@ -7,12 +7,12 @@ import {
   StatusBar,
   TextInput,
 } from 'react-native';
-import { Formik,  Field, Form } from 'formik';
-import {Text, List, ListItem, Container, Content, Tabs, Tab, TabHeading, Button } from 'native-base';
+import { Formik,  Field, Form, withFormik } from 'formik';
+import {Text, List, ListItem, Container, Content, Tabs, Tab, TabHeading, Button, Toast } from 'native-base';
 
 import Input from './Components/InputText';
 import Picker from './Components/PickerText';
-import { getSpecialisations, addDoctor } from '../../dal/fetch';
+import { getSpecialisations, addDoctor, removeDoctor } from '../../dal/fetch';
 
 const doctorInintFields = {
   name: '',
@@ -21,7 +21,7 @@ const doctorInintFields = {
   medical_facility_address: '',
   medical_facility_latitude: '',
   medical_facility_longitude: '',
-  reception_work_phone: '',
+  reception_phone_number: '',
   work_phone: '',
   mobile_phone: '',
   email: '',
@@ -29,45 +29,69 @@ const doctorInintFields = {
 
 
 class DoctorForm extends Component {
-  state = {
-    spec: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+        spec: [],
+        doctor: props.navigation.getParam('doctor', null),
+    };
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Добавить врача',
-    headerRight: () => (
-      <View style={{ paddingRight: 10 }}>
-        <Button
-          transparent
-          small
-          onPress={() => {
-            navigation.submitForm();
-            navigation.navigate('Initial');
-          }}
-        >
-          <Text style={{ fontSize: 26 }}>v</Text>
-        </Button>
-      </View>
-    ),
-  })
+  static navigationOptions = ({ navigation }) => {
+    const doctor = navigation.getParam('doctor', null);
+    return  {
+      title: doctor ? 'Редактировать врача' : 'Добавить врача',
+      headerRight: () => (
+        <View style={{ paddingRight: 10 }}>
+          <Button
+            transparent
+            small
+            onPress={() => {
+              navigation.submitForm();
+              navigation.navigate('Initial');
+            }}
+          >
+            <Text style={{ fontSize: 26 }}>v</Text>
+          </Button>
+        </View>
+      ),
+    };
+  };
 
   componentDidMount() {
     getSpecialisations().then(({ data }) => this.setState({ spec: data }));
   }
 
   submit = (values) => {
-    // console.log('FORM>>>', values)
-    addDoctor(values).then((r) => console.log('add', r))
+    const { navigation } = this.props;
+    addDoctor(values)
+    .then(() => {
+      navigation.navigate('Inintial');
+    });
+  }
+
+  removeDoctor = () => {
+    const { doctor } = this.state;
+    const { navigation } = this.props;
+    removeDoctor(doctor.id)
+    .then(() => {
+      navigation.goBack();
+    });
   }
 
   render() {
-    const { spec } = this.state;
+    const { spec, doctor } = this.state;
+    if (doctor) {
+       doctor.specialisation_id = parseInt(doctor.specialisation_id, 10);
+    }
+
     return (
       <Container>
         <ScrollView style={styles.container}>
             <Formik
-              initialValues={doctorInintFields}
+              initialValues={doctor || doctorInintFields}
               onSubmit={this.submit}
+              enableReinitialize
             >
               {({
               handleSubmit,
@@ -104,8 +128,8 @@ class DoctorForm extends Component {
                     />
                     <Input
                       label="Телефон регистратуры"
-                      onChange={handleChange('reception_work_phone')}
-                      value={values.reception_work_phone}
+                      onChange={handleChange('reception_phone_number')}
+                      value={values.reception_phone_number}
                     />
                     <Input
                       label="Рабочий телефон"
@@ -126,6 +150,18 @@ class DoctorForm extends Component {
                 );
               }}
             </Formik>
+                {!!doctor &&
+                <View style={styles.delButton}>
+                  <Button
+                    rounded
+                    bordered
+                    danger
+                    style={{ justifyContent: 'center' }}
+                    onPress={this.removeDoctor}
+                  >
+                    <Text>Удалить врача</Text>
+                  </Button>
+                </View>}
         </ScrollView>
       </Container>
     );
@@ -138,6 +174,11 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     marginBottom:40,
   },
+  delButton: {
+    marginVertical: 20,
+    paddingHorizontal: 60,
+  }
 });
+
 
 export default DoctorForm;

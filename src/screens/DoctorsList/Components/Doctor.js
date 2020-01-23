@@ -7,28 +7,29 @@ import {
   StatusBar,
   TouchableHighlight
 } from 'react-native';
-import ActionSheet from 'react-native-actionsheet'
+import ActionSheet from 'react-native-actionsheet';
+import { withNavigation } from 'react-navigation';
 
 import {Text, Card, CardItem } from 'native-base';
 
 class DoctorItem extends React.Component {
 
   showActionSheet = () => {
-      this.ActionSheet.show()
+      this.ActionSheet.show();
   }
 
   switchActions = (index) => {
+    const { navigation, doctor } = this.props;
     switch (index) {
       case 0:
-        console.log('index>>', index)
+        navigation.navigate({ routeName: 'DoctorForm', params: { doctor }});
         break;
       case 1:
-        console.log('index>>', index)
         break;
       case 2:
-        console.log('index>>', index)
         break;
-      
+      default:
+        break;
     }
   }
 
@@ -67,8 +68,8 @@ const styles = StyleSheet.create({
   },
   textSpec: {
     fontSize: 14,
-    color: 'gray'
+    color: 'gray',
   }
 })
 
-export default DoctorItem;
+export default withNavigation(DoctorItem);

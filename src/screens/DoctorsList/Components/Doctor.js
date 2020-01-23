@@ -4,8 +4,9 @@ import {
   View} from 'react-native';
 import ActionSheet from 'react-native-actionsheet';
 import { withNavigation } from 'react-navigation';
+import { Text, Card, CardItem } from 'native-base';
 
-import {Text, Card, CardItem } from 'native-base';
+import { DotsIcon } from '../../../icons';
 
 class DoctorItem extends React.Component {
 
@@ -38,7 +39,7 @@ class DoctorItem extends React.Component {
             <Text style={styles.textSpec}>{doctor.specialisation_title}</Text>
           </CardItem>
           <CardItem button onPress={this.showActionSheet}>
-            <Text>W</Text>
+            {DotsIcon(20, 20, 'gray')}
           </CardItem>
         </Card>
         <ActionSheet

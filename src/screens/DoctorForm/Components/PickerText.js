@@ -13,7 +13,7 @@ const PickerText = (props) => {
           onValueChange={props.onChange}
         >
           {props.data.map(item => (
-            <Picker.Item label={item.title} value={item.id} />
+            <Picker.Item key={item.id} label={item.title} value={item.id} />
           ))}
         </Picker>
       <View style={styles.picker}/>

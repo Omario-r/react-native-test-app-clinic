@@ -6,10 +6,12 @@ import {
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Initial from '../screens/Initial';
+import DoctorForm from '../screens/DoctorForm/DoctorForm';
 
 const RootSwitchNavigator = createAppContainer(createStackNavigator(
   {
     Initial,
+    DoctorForm,
   },
   {
     initialRouteName: 'Initial',
